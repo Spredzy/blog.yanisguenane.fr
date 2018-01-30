@@ -1,0 +1,14 @@
+baseURL:                    "https://blog.yanisguenane.fr"
+theme:                      "purehugo"
+title:                      "Yanis Guenane"
+
+params:
+  twitterName: YanisGuenane
+  githubName: Spredzy
+  linkedinName: yanisguenane
+  description: Simplicity, Pragmatism, Minimalism
+  twitter: YanisGuenane
+  hideSidebarIconText: true
+  hideShareOptions: True
+  showAbout: true
+  email: yanis+blog@guenane.org
