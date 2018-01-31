@@ -1,12 +1,12 @@
 ---
 title: "Sharing secrets across a team"
-date: 2018-01-19T17:14:24+01:00
+date: 2018-01-31T13:46:58+01:00
 draft: false
 categories: ['security', 'collaboration']
 author: Yanis Guenane
 ---
 
-In my team at $DAYJOB, like most teams, we need to share secrets. Hence we started to look at the various options available. There is a plethora of tools out there that address this specific issue, but after hearing everyone in the team expectations, we came out with a minimal set of requirements the tool should fullfill:
+In my team at $DAYJOB, like most teams, we need to share secrets. Hence we started looking at the various options available. There is a plethora of tools out there that address this specific issue, but after hearing everyone in the team and their expectations about the tool, we came up with a minimal set of requirements the tool should fulfill:
 
   * **No shared password**: Secrets must be available for every team members using their own password, no shared password required.
   * **Offline use**: Secrets must be available offline.
@@ -55,7 +55,7 @@ drwxrwxr-x.  7 jdoe    jdoe    200 Jan 29 18:42 .git
 drwxrwxr-x.  2 jdoe    jdoe     40 Jan 29 18:42 .public-keys
 ```
 
-  * `.gpg-id`: File that Contains the team members emails with which they created their `gpg`  key. One per-line. Value can be obtained by running `gpg2 --list-secret-keys`.
+  * `.gpg-id`: File that contains the team members emails with which they created their `gpg`  key. One per-line.
 
 ```shell
 jdoe@localhost: cat .gpg-id
@@ -64,7 +64,7 @@ user2@example.org
 user3@example.org
 ```
 
-  * `.public-keys/`: Folder that contains the team members gpg public keys. Value can be obtained by running `gpg2 --armor --export user1@example.org`. This isn't a requirement, its simply eases the whole process as it will be explained later.
+  * `.public-keys/`: Folder that contains the team members `gpg` public keys. Value can be obtained by running `gpg2 --armor --export user1@example.org`. This isn't a requirement, its simply eases the whole process as it will be explained later.
 
 ```shell
 jdoe@localhost: ls -l .public-keys/
@@ -89,11 +89,11 @@ With the above example we've created the *myteam* password store.
 
 **Note**: This operation needs to happen on every team members workstation.
 
-### sign the keys
+### Sign each other keys
 
-GPG principle is based around trust. This means that in order for the secrets to be viewable by the team members, each member needs to sign and trust each other (in the GPG way).
+GPG principle is based around trust. This means that in order for the secrets to be viewable/editable by the team members, each member needs to sign each other (in the GPG way).
 
-Here is the procedure to sign and trust each other:
+Here is the procedure to sign each other:
 
   * Import **all** the team members public key (they are available in the `.publick-keys/` directory)
 
@@ -135,7 +135,7 @@ Ok, you've done all the hard work. From now on let's enjoy simplicity. In the pr
   * Editing a password: `pass edit myteam/mailserver/root`
   * Generating a password: `pass generate myteam/mailserver/notifications`
 
-The data organization is really up to you and your team members. This translate to simple file hierarchy on the file system. One can provide more than just the private bits in the secret, it can provide any metadata that might be usefull in the context of the secret.
+The data organization is really up to you and your team members. This translates to simple file hierarchy on the file system. One can provide more than just the private bits in the secret, it can provide any metadata that might be usefull in the context of the secret.
 Refer to the [pass(1)](https://git.zx2c4.com/password-store/about/) man pages for more examples.
 
 The great thing with `pass(1)` is that each operation generates a git commit. Making it easily version controlled. Below an example of what happens when inserting a new secret.
@@ -153,14 +153,15 @@ gpg: automatically retrieved 'user1@example.org' via Local
 ```
 
 So after each operation, the team member that did the operation only have to push the changes so all the other users from the team can pull from it and have access to the latest secrets.
+The management of stores with regarde to git is exactly the same as any other git project. `pass(1)` will create the commits automatically, but it is up to the team member that altered the store to push those changes to the central server.
 
 ### Onboard a new team member
 
 To onboard new team members, this is the procedure to follow:
 
-  1. The new team member needs to generate a gpg key
+  1. The new team member needs to generate a `gpg` key.
   2. It needs to retrieve the git repository of the store and add itself to `.gpg-id` and `.public-keys/`, commit and push.
-  3. All the other team members needs to import and sign the new team member key
+  3. All the other team members needs to import and sign the new team member key.
   4. One of the team member needs to re-encrypt the store so the new team member can decrypt the secrets (ie. `pass init -p myteam $(cat ~/.password-store/myteam/.gpg-id)`) and submit the new commits that were automatically generated.
   5. New team member is onboarded, she can know access secrets and create new ones.
 
@@ -169,9 +170,9 @@ To onboard new team members, this is the procedure to follow:
 
 To decomission a team member, this is the procedure to follow:
 
-  1. A team member removes the id of the team member to decomission from `.gpg-id` and its corresponding key from `.public-keys/`
+  1. A team member removes the id of the team member to decomission from `.gpg-id` and its corresponding public key file from `.public-keys/`
   2. Re-encrypt the store so the decomissioned team member can not read the secrets anymore (ie. `pass init -p myteam $(cat ~/.password-store/myteam/.gpg-id)`) and submit the new commits that were automatically generated.
-  3. Re-generate all the password in the keystore. So the decomissioned team member is left with no knowledge.
+  3. Re-generate all the password in the key store. So the decomissioned team member is left with no knowledge.
 
 
 ## Conclusion
