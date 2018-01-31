@@ -1,5 +1,6 @@
 ---
 title: "Sharing secrets across a team"
+description: "Sharing secrets across a team #security #collaboration"
 date: 2018-01-31T13:46:58+01:00
 draft: false
 categories: ['security', 'collaboration']
