@@ -24,3 +24,14 @@ Aside from IT, I consider myself an #avgeek and travel addict. I love discoverin
 Oh and as the title of this blog says, I try to lean towards *Simplicity, Pragmatism and Minimalism*. Posts on this blog will hopefully reflect that.
 
 
+## $> Tell me your toolset and I'll tell you who you are
+
+  * [pass(1)](https://www.passwordstore.org/): Password management
+  * [vim(1)](http://www.vim.org/): `$EDITOR`
+  * [firefox(1)](https://www.mozilla.org/en-US/firefox/): Web browser
+  * [tmux(1)](https://github.com/tmux/tmux/wiki):  Terminal multiplexer
+  * [weechat(1)](https://weechat.org/): IRC client
+  * [zathura(1)](https://pwmt.org/projects/zathura/): Document viewer
+  * [i3(1)](https://i3wm.org/): Tiling window manager
+
+
