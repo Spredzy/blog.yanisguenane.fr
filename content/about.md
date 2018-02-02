@@ -33,5 +33,3 @@ Oh and as the title of this blog says, I try to lean towards *Simplicity, Pragma
   * [weechat(1)](https://weechat.org/): IRC client
   * [zathura(1)](https://pwmt.org/projects/zathura/): Document viewer
   * [i3(1)](https://i3wm.org/): Tiling window manager
-
-
